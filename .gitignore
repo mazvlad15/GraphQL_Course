@@ -1,0 +1,31 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Environment variables
+.env
+
+# Build directories (React specific)
+build/
+dist/
+
+# Logs
+*.log
+
+# Sequelize specific (if using migrations and models)
+sequelize-cli/
+
+# OS-specific files
+.DS_Store  # macOS specific
+Thumbs.db  # Windows specific
+
+# IDE/Editor specific
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Package lock (optional, depends on project)
+package-lock.json
+yarn.lock

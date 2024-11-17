@@ -176,6 +176,7 @@ export default function DisplayData() {
                         })
 
                         refetch();
+                        setShowModal(false);
                     }}>
                         Save User
                     </button>

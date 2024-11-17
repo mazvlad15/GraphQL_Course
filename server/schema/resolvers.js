@@ -1,43 +1,39 @@
 const { UserList } = require("../fakeData");
-const _ = require("lodash")
+const { User } = require("../models")
 
 const resolvers = {
     Query: {
-        users: () => {
-            return UserList;
+        users: async () => {
+            const users = await User.findAll();
+            return users;
         },
-        user: ((parent, args) => {
+        user: async (parent, args) => {
             const id = args.id;
-            const user = _.find(UserList, { id: Number(id) });
-            return user;
-        })
+            return await User.findByPk(id);
+        }
     },
 
     Mutation: {
-        addUser: (parent, args) => {
+        addUser: async (parent, args) => {
             const user = args.input;
-            const lastId = UserList[UserList.length - 1].id;
-            user.id = lastId + 1;
-            UserList.push(user);
+            await User.create(user)
+            return null;
+        },
+
+        updateUsername: async (parent, args) => {
+            const { id, newUsername } = args.input;
+            const user = await User.findByPk(id);
+            if (user) {
+                user.username = newUsername;
+                await User.save();
+            }
             return user;
         },
 
-        updateUsername: (parent, args) => {
-            const {id, newUsername} = args.input;
-            let userUpdated;
-            UserList.forEach((user) => {
-                if(user.id === Number(id)) {
-                    userUpdated = user;
-                    user.username = newUsername;
-                }
-            });
-            return userUpdated;
-        },
-
-        deleteUser: (parent, args) => {
+        deleteUser: async (parent, args) => {
             const id = args.id;
-            _.remove(UserList, (user) => user.id === Number(id));
-            return null;``
+            await User.destory({ where: { id } });
+            return null; ``
         }
     }
 }
