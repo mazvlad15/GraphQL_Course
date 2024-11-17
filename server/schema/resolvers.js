@@ -1,4 +1,3 @@
-const { UserList } = require("../fakeData");
 const { User } = require("../models")
 
 const resolvers = {
